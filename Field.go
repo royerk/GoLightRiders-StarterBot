@@ -48,5 +48,8 @@ func (f Field) isValid(row, col int) bool {
 	if col < 0 || col >= f.width {
 		return false
 	}
-	return true
+	if f.cells[row][col] == empty {
+		return true
+	}
+	return false
 }
