@@ -2,9 +2,9 @@ package main
 
 import "strings"
 
-const empty int = 0
-const player1 int = 1
-const player2 int = 2
+const player1 int = 0
+const player2 int = 1
+const empty int = 2
 const blocked int = 3
 
 // Field class
@@ -19,6 +19,9 @@ func (f *Field) initField(h, w int) {
 	f.cells = make([][]int, f.height)
 	for row := 0; row < f.height; row++ {
 		f.cells[row] = make([]int, f.width) // default initialization with 0s
+		for col := 0; col < f.width; col++ {
+			f.cells[row][col] = empty
+		}
 	}
 }
 func stringToInt(s string) int {
@@ -42,14 +45,8 @@ func (f *Field) parse(text string) {
 	}
 }
 func (f Field) isValid(row, col int) bool {
-	if row >= 0 && row < f.height {
-		return false
-	}
-	if col >= 0 || col < f.width {
-		return false
-	}
-	if f.cells[row][col] == empty {
-		return true
-	}
-	return false
+	isValid := row >= 0 && row < f.height
+	isValid = isValid && (col >= 0 && col < f.width)
+	isValid = isValid && f.cells[row][col] == empty
+	return isValid
 }

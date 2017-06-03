@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
 )
 
 // Bot here goes Hal
@@ -19,11 +20,14 @@ func (b Bot) play(g Game) {
 			}
 		}
 	}
+	fmt.Fprintln(os.Stderr, "bot position: row (y) = ", b.row, ", col (x) = ", b.col)
 	// find a random legal move
 	moves := b.getValidMoves(g.field)
 	if len(moves) == 0 {
+		fmt.Fprintln(os.Stderr, "blocked, print \"up\"")
 		fmt.Println("up") // bot is blocked
 	} else {
+		fmt.Fprintln(os.Stderr, "available moves: ", moves)
 		fmt.Println(moves[rand.Intn(len(moves))])
 	}
 }
