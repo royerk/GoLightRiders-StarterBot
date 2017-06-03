@@ -42,10 +42,10 @@ func (f *Field) parse(text string) {
 	}
 }
 func (f Field) isValid(row, col int) bool {
-	if row < 0 || row >= f.height {
+	if row >= 0 && row < f.height {
 		return false
 	}
-	if col < 0 || col >= f.width {
+	if col >= 0 || col < f.width {
 		return false
 	}
 	if f.cells[row][col] == empty {
